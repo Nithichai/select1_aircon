@@ -29,7 +29,9 @@ class AirCon {
         '<message>DATA INSERT COMPLETE</message>'; 
       return $xml_return;
     } else {
-      return "Error: " . $sql . "<br>" . $conn->error;
+      $xml_return = '<?xml version="1.0" encoding="UTF-8"?>' . 
+        '<error>Error: ' . $sql . '<br>' . $conn->error . '</error>';
+      return $xml_return;
     }
   }
 }
