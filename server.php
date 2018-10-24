@@ -10,10 +10,10 @@ class AirCon {
   public function post_aircon($data_packet) {
     list($room, $temp, $humidity, $time) = explode(",", $data_packet);
 
-    $servername = "";
-    $username = "";
-    $password = "";
-    $database = "";
+    $servername = "u28rhuskh0x5paau.cbetxkdyhwsb.us-east-1.rds.amazonaws.com";
+    $username = "rfxtlqff1b3jpllv";
+    $password = "qnzetmryuh5jowk0";
+    $database = "z1jc6gd9aiwp5m5c";
     $conn = new mysqli($servername, $username, $password, $database);
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
@@ -31,7 +31,7 @@ class AirCon {
     }
   }
 }
-$serverUrl = "http://127.0.0.1/select1/aircon/server.php";
+$serverUrl = "https://" . $_SERVER['HTTP_HOST'] . "/server.php";
 $options = [
     'uri' => $serverUrl,
 ];

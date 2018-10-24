@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "/subscriptions/b451f8a0-ef43-47be-800b-0644a8213983/resourceGroups/appsvc_rg_linux_centralus/providers/Microsoft.Web/sites/aircon-php-server",
+    "appService.deploySubpath": ""
+}
