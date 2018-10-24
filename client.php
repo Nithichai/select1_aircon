@@ -58,14 +58,12 @@
         }
     ?>
 
-    Air Condition
+    Air Condition<br>
     <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
-        Room: <input type="text" name="room" value="<?php echo $room;?>" require>
-        <br><br>
-        Tempurature: <input type="text" name="temp" value="<?php echo $temp;?>" require>
-        <br><br>
-        Humidity: <input type="text" name="humidity" value="<?php echo $humidity;?>" require>
-        <br><br>
+        Room: <input type="text" name="room" value="<?php echo $room;?>" require><br>
+        Tempurature: <input type="text" name="temp" value="<?php echo $temp;?>" require><br>
+        Humidity: <input type="text" name="humidity" value="<?php echo $humidity;?>" require><br>
+        <input type="submit">
     </form>
 </body>
 </html>
