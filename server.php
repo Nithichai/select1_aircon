@@ -25,7 +25,9 @@ class AirCon {
       $stmt->bind_param('sss', $room, $temp, $humidity);
       $stmt->execute();
       $stmt->close();
-      return "New record created successfully";
+      $xml_return = '<?xml version="1.0" encoding="UTF-8"?>' . 
+        '<message>DATA INSERT COMPLETE</message>'; 
+      return $xml_return;
     } else {
       return "Error: " . $sql . "<br>" . $conn->error;
     }
