@@ -2,6 +2,31 @@
   require_once __DIR__ . '/vendor/autoload.php';
 
   class AirCon {
+    
+    private function pass_dom() {
+      $doc = new DomDocument('1.0');
+      $doc->preserveWhiteSpace = false;
+      $doc->formatOutput = true;
+      $root = $doc->createElement('message');
+      $root = $doc->appendChild($root);
+      $value = $doc->createTextNode('DATA INSERT COMPLETE');
+      $root = $doc->appendChild($value);
+      $xml_string = $doc->saveXML() ;
+      return $xml_string;
+    } 
+
+    private function fail_dom() {
+      $doc = new DomDocument('1.0');
+      $doc->preserveWhiteSpace = false;
+      $doc->formatOutput = true;
+      $root = $doc->createElement('error');
+      $root = $doc->appendChild($root);
+      $value = $doc->createTextNode('Error: ' . $sql . '<br>' . $conn->error);
+      $root = $doc->appendChild($value);
+      $xml_string = $doc->saveXML() ;
+      return $xml_string;
+    } 
+
     /**
      * Post air-condition value. ('room,temp,humiduty')
      *
@@ -30,31 +55,6 @@
         return fail_dom();
       }
     }
-
-    private function pass_dom() {
-      $doc = new DomDocument('1.0');
-      $doc->preserveWhiteSpace = false;
-      $doc->formatOutput = true;
-      $root = $doc->createElement('message');
-      $root = $doc->appendChild($root);
-      $value = $doc->createTextNode('DATA INSERT COMPLETE');
-      $root = $doc->appendChild($value);
-      $xml_string = $doc->saveXML() ;
-      return $xml_string;
-    } 
-
-    private function fail_dom() {
-      $doc = new DomDocument('1.0');
-      $doc->preserveWhiteSpace = false;
-      $doc->formatOutput = true;
-      $root = $doc->createElement('error');
-      $root = $doc->appendChild($root);
-      $value = $doc->createTextNode('Error: ' . $sql . '<br>' . $conn->error);
-      $root = $doc->appendChild($value);
-      $xml_string = $doc->saveXML() ;
-      return $xml_string;
-    } 
-
   }
 
   $serverUrl = "https://" . $_SERVER['HTTP_HOST'] . "/server.php";
