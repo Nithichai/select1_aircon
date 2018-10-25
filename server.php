@@ -60,6 +60,43 @@
       $xml_str = $xml_str . '</payload>';
       return $xml_str;
     }
+
+    /**
+     * Post goods ('name,addr,weight')
+     *
+     * @param string $data_packet
+     * @return string $callback
+     */
+    public function post_goods($data_packet) {
+      list($name, $addr, $weight) = explode(",", $data_packet);
+
+      $servername = "u28rhuskh0x5paau.cbetxkdyhwsb.us-east-1.rds.amazonaws.com";
+      $username = "rfxtlqff1b3jpllv";
+      $password = "qnzetmryuh5jowk0";
+      $database = "z1jc6gd9aiwp5m5c";
+      $conn = new mysqli($servername, $username, $password, $database);
+      if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+      }
+      $sql = "INSERT INTO goods (goods_name, goods_addr, goods_weight, goods_status) VALUES (?, ?, ?, ?)";
+      if ($stmt = $conn->prepare($sql)) {
+        $stmt->bind_param('ssss', $name, $addr, $weight, False);
+        $stmt->execute();
+        $stmt->close();
+        $xml_str = '<payload>' . 
+          '<name>' . $room . '</name>' . 
+          '<addr>' . $temp . '</addr>' . 
+          '<weight>' . $humidity . '</weight>' . 
+          '<status>Not sent</status>' .
+        '</payload>';
+        return $xml_str;
+      } else {
+        $xml_str = '<payload>' . 
+          '<error>Cannot post data</error>' .
+        '</payload>';
+        return $xml_str;
+      }
+    }
   } 
 
   $serverUrl = "https://" . $_SERVER['HTTP_HOST'] . "/server.php";
