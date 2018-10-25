@@ -78,7 +78,7 @@
       if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
       }
-      $sql = "INSERT INTO goods (goods_name, goods_addr, goods_weight, goods_status) VALUES (?, ?, ?, ?)";
+      $sql = "INSERT INTO goods (goods_name, goods_addr, goods_weight, goods_sent) VALUES (?, ?, ?, ?)";
       if ($stmt = $conn->prepare($sql)) {
         $stmt->bind_param('ssdi', $name, $addr, $weight, 0);
         $stmt->execute();
