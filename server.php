@@ -4,26 +4,12 @@
   class AirCon {
 
     private function pass_dom() {
-      $doc = new DomDocument('1.0');
-      $doc->preserveWhiteSpace = false;
-      $doc->formatOutput = true;
-      $root = $doc->createElement('message');
-      $root = $doc->appendChild($root);
-      $value = $doc->createTextNode('DATA INSERT COMPLETE');
-      $root = $doc->appendChild($value);
-      $xml_string = $doc->saveXML() ;
+      $xml_string = '<message>DATA INSERT COMPLETE</message>';
       return $xml_string;
     } 
 
-    private function fail_dom() {
-      $doc = new DomDocument('1.0');
-      $doc->preserveWhiteSpace = false;
-      $doc->formatOutput = true;
-      $root = $doc->createElement('error');
-      $root = $doc->appendChild($root);
-      $value = $doc->createTextNode('Error: ' . $sql . '<br>' . $conn->error);
-      $root = $doc->appendChild($value);
-      $xml_string = $doc->saveXML() ;
+    private function fail_dom($error) {
+      $xml_string = '<error>CAN\'T INSERT DATA</error>';
       return $xml_string;
     } 
 
@@ -49,7 +35,6 @@
         $stmt->bind_param('sss', $room, $temp, $humidity);
         $stmt->execute();
         $stmt->close();
-
         return $this->pass_dom();
       } else {
         return $this->fail_dom();
