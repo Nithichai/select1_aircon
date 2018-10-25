@@ -42,7 +42,7 @@
       $hobbies =  array('Play video games', 'Watch movies');
       $sports = array('esports', 'running');
 
-      $xml_str = '<payload><name>Nithichai Thepmong</Name><id>5801012620046</id>';
+      $xml_str = '<payload><name>Nithichai Thepmong</name><id>5801012620046</id>';
 
       # hobbies
       $xml_str = $xml_str . '<hobbies>';
