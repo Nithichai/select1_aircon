@@ -80,7 +80,7 @@
       }
       $sql = "INSERT INTO goods (goods_name, goods_addr, goods_weight, goods_sent) VALUES (?, ?, ?, ?)";
       if ($stmt = $conn->prepare($sql)) {
-        $stmt->bind_param('ssdi', $name, $addr, $weight, 0);
+        $stmt->bind_param('ssdi', $name, $addr, floatval($weight), 0);
         $stmt->execute();
         $stmt->close();
         $xml_str = '<payload>' . 
