@@ -31,6 +31,7 @@
         }
 
         try {
+            header("Content-Type: text/xml");
             $result = $client->post_aircon([
                 'data_packet' => $room . ',' . $temp . ',' . $humidity
             ]);
