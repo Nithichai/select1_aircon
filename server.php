@@ -2,7 +2,7 @@
   require_once __DIR__ . '/vendor/autoload.php';
 
   class AirCon {
-    
+
     private function pass_dom() {
       $doc = new DomDocument('1.0');
       $doc->preserveWhiteSpace = false;
@@ -50,9 +50,9 @@
         $stmt->execute();
         $stmt->close();
 
-        return pass_dom();
+        return $this->pass_dom();
       } else {
-        return fail_dom();
+        return $this->fail_dom();
       }
     }
   }
