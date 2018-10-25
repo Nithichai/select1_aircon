@@ -4,6 +4,7 @@
 
     $room = $temp = $humidity = "";
 
+    header('Content-Type: text/xml');
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $room = test_input($_POST["room"]);
         $temp = test_input($_POST["temp"]);
