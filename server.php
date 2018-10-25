@@ -2,17 +2,6 @@
   require_once __DIR__ . '/vendor/autoload.php';
 
   class AirCon {
-
-    private function pass_dom() {
-      $xml_string = '<message>DATA INSERT COMPLETE</message>';
-      return $xml_string;
-    } 
-
-    private function fail_dom($error) {
-      $xml_string = '<error>CAN\'T INSERT DATA</error>';
-      return $xml_string;
-    } 
-
     /**
      * Post air-condition value. ('room,temp,humiduty')
      *
@@ -35,9 +24,10 @@
         $stmt->bind_param('sss', $room, $temp, $humidity);
         $stmt->execute();
         $stmt->close();
-        return $this->pass_dom();
+        return '<payload><room>' . $room . '</room><temperature>' . $temp . 
+          '</temperature><humidity>' . $humidity . '</humidity></payload>';
       } else {
-        return $this->fail_dom();
+        return '<error>CAN\'T INSERT DATA</error>';
       }
     }
   }
