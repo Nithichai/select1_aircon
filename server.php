@@ -30,7 +30,37 @@
         return '<error>CAN\'T INSERT DATA</error>';
       }
     }
-  }
+
+    /**
+     * Get personal data
+     *
+     * @return string $callback
+     */
+    public function get_personal_data() {
+      $name = "Nithichai Thepmong";
+      $id = "5801012620046";
+      $hobbies =  array('Play video games', 'Watch movies');
+      $sports = array('esports', 'running');
+
+      $xml_str = '<payload><name>Nithichai Thepmong</Name><id>5801012620046</id>';
+
+      # hobbies
+      $xml_str = $xml_str . '<hobbies>';
+      foreach($hobbies as $hobby) {
+        $xml_str = $xml_str . '<hobby>' . $hobby . '</hobby>';
+      }
+      $xml_str = $xml_str . '</hobbies>';
+
+      # sports
+      $xml_str = $xml_str . '<sports>';
+      foreach($sports as $sport) {
+        $xml_str = $xml_str . '<sport>' . $sport . '</sport>';
+      }
+      $xml_str = $xml_str . '</sports>';
+      $xml_str = $xml_str . '</payload>';
+      return $xml_str;
+    }
+  } 
 
   $serverUrl = "https://" . $_SERVER['HTTP_HOST'] . "/server.php";
   $options = [
