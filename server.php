@@ -69,6 +69,7 @@
      */
     public function post_goods($data_packet) {
       list($name, $addr, $weight) = explode(",", $data_packet);
+      $status = '0';
 
       $servername = "u28rhuskh0x5paau.cbetxkdyhwsb.us-east-1.rds.amazonaws.com";
       $username = "rfxtlqff1b3jpllv";
@@ -80,7 +81,7 @@
       }
       $sql = "INSERT INTO goods (goods_name, goods_addr, goods_weight, goods_sent) VALUES (?, ?, ?, ?)";
       if ($stmt = $conn->prepare($sql)) {
-        $stmt->bind_param('ssss', $name, $addr, $weight, "0");
+        $stmt->bind_param('ssss', $name, $addr, $weight, $status);
         $stmt->execute();
         $stmt->close();
         $xml_str = '<payload>' . 
