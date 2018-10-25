@@ -5,7 +5,7 @@
     header('Content-Type: text/xml');
     $name = 'Nopy';
     $addr = 'Namek';
-    $weight = sprintf("%.3f", 0.1);
+    $weight = 0.1;
     $data_str = $name . ',' . $addr . ',' . $weight;
     try {
         $result = $client->post_goods(['data_packet' => $data_str]);
