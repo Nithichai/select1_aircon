@@ -29,6 +29,16 @@
                 $humidityErr = "Only number allowed"; 
             }
         }
+
+        try {
+            $result = $client->post_aircon([
+                'data_packet' => $room . ',' . $temp . ',' . $humidity
+            ]);
+            echo $result->post_airconResult;
+        } catch (SoapFault $e) {
+            echo '<?xml version="1.0" encoding="UTF-8"?>' . 
+                '<error>' . $e->getMessage() . '</error>';
+        }
     }
 
     function test_input($data) {

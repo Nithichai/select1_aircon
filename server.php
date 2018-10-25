@@ -2,7 +2,7 @@
 require_once __DIR__ . '/vendor/autoload.php';
 class AirCon {
   /**
-   * Post air-condition value.
+   * Post air-condition value. ('room,temp,humiduty')
    *
    * @param string $data_packet
    * @return string $callback
