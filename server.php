@@ -80,13 +80,13 @@
       }
       $sql = "INSERT INTO goods (goods_name, goods_addr, goods_weight, goods_status) VALUES (?, ?, ?, ?)";
       if ($stmt = $conn->prepare($sql)) {
-        $stmt->bind_param('ssss', $name, $addr, $weight, False);
+        $stmt->bind_param('sssi', $name, $addr, $weight, 0);
         $stmt->execute();
         $stmt->close();
         $xml_str = '<payload>' . 
-          '<name>' . $room . '</name>' . 
-          '<addr>' . $temp . '</addr>' . 
-          '<weight>' . $humidity . '</weight>' . 
+          '<name>' . $name . '</name>' . 
+          '<addr>' . $addr . '</addr>' . 
+          '<weight>' . $weight . '</weight>' . 
           '<status>Not sent</status>' .
         '</payload>';
         return $xml_str;
