@@ -121,20 +121,23 @@
         $stmt->close();
 
         $sql = "SELECT * FROM goods WHERE id = ?";
-        $result = $conn->query($sql);
-        while($row = $result->fetch_assoc()) {
-          $name = $row["goods_name"];
-          $addr = $row["goods_addr"];
-          $weight = $row["goods_weight"];
-          $status = $row["goods_sent"];
-          $xml_str = '<payload>' . 
-            '<name>' . $name . '</name>' . 
-            '<addr>' . $addr . '</addr>' . 
-            '<weight>' . $weight . '</weight>' . 
-            '<status>' . $status . '</status>' .
-          '</payload>';
-          return $xml_str;
-        }  
+        if ($stmt = $conn->prepare($sql)) {
+          $stmt->bind_param('s', $id);
+          $result = $conn->query($sql);
+          while($row = $result->fetch_assoc()) {
+            $name = $row["goods_name"];
+            $addr = $row["goods_addr"];
+            $weight = $row["goods_weight"];
+            $status = $row["goods_sent"];
+            $xml_str = '<payload>' . 
+              '<name>' . $name . '</name>' . 
+              '<addr>' . $addr . '</addr>' . 
+              '<weight>' . $weight . '</weight>' . 
+              '<status>' . $status . '</status>' .
+            '</payload>';
+            return $xml_str;
+          }  
+        }
       } else {
         $xml_str = '<payload>' . 
           '<error>Cannot update data</error>' .
