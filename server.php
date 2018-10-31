@@ -126,6 +126,7 @@
       $sql = "SELECT * FROM goods WHERE id = ?";
       if ($stmt = $conn->prepare($sql)) {
         $stmt->bind_param('s', $id);
+        $stmt->execute();
         $stmt->close();
       } else {
         die("Connection failed: " . $conn->connect_error);
