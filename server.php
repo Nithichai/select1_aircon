@@ -153,7 +153,7 @@
           '<name>' . $row["goods_name"] . '</name>' .
           '<address>' . $row["goods_addr"] . '</address>' .
           '<weight>' . $row["goods_weight"] . '</weight>' .
-          '<status>' . $row["goods_status"] . '</status></goods>';
+          '<status>' . $row["goods_sent"] . '</status></goods>';
       }
       $xml_str = $xml_str . '</payload>';
       return $xml_str;
