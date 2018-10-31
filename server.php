@@ -119,6 +119,7 @@
         $stmt->bind_param('s', $id);
         $stmt->execute();
         $stmt->close();
+
         $sql = "SELECT * FROM goods WHERE id = ?";
         $result = $conn->query($sql);
         while($row = $result->fetch_assoc()) {
@@ -136,7 +137,7 @@
         }  
       } else {
         $xml_str = '<payload>' . 
-          '<error>Cannot post data</error>' .
+          '<error>Cannot update data</error>' .
         '</payload>';
         return $xml_str;
       }
