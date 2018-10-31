@@ -17,11 +17,6 @@
     public function post_aircon($data_packet) {
       $conn = $GLOBALS['conn'];
       list($room, $temp, $humidity, $time) = explode(",", $data_packet);
-      // $servername = "u28rhuskh0x5paau.cbetxkdyhwsb.us-east-1.rds.amazonaws.com";
-      // $username = "rfxtlqff1b3jpllv";
-      // $password = "qnzetmryuh5jowk0";
-      // $database = "z1jc6gd9aiwp5m5c";
-      // $conn = new mysqli($servername, $username, $password, $database);
       if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
       }
@@ -77,11 +72,6 @@
       list($name, $addr, $weight) = explode(",", $data_packet);
       $status = '0';
       $conn = $GLOBALS['conn'];
-      // $servername = "u28rhuskh0x5paau.cbetxkdyhwsb.us-east-1.rds.amazonaws.com";
-      // $username = "rfxtlqff1b3jpllv";
-      // $password = "qnzetmryuh5jowk0";
-      // $database = "z1jc6gd9aiwp5m5c";
-      // $conn = new mysqli($servername, $username, $password, $database);
       if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
       }
@@ -113,11 +103,6 @@
      */
     public function update_goods($id) {
       $conn = $GLOBALS['conn'];
-      // $servername = "u28rhuskh0x5paau.cbetxkdyhwsb.us-east-1.rds.amazonaws.com";
-      // $username = "rfxtlqff1b3jpllv";
-      // $password = "qnzetmryuh5jowk0";
-      // $database = "z1jc6gd9aiwp5m5c";
-      // $conn = new mysqli($servername, $username, $password, $database);
       if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
       }
