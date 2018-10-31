@@ -148,10 +148,7 @@
         }
         $result->close();
       } else {
-        $xml_str = '<payload>' . 
-          '<error>Cannot update data</error>' .
-        '</payload>';
-        return $xml_str;
+        die("Connection failed: " . $conn->connect_error);
       }
     }
 
