@@ -118,26 +118,34 @@
       if ($stmt = $conn->prepare($sql)) {
         $stmt->bind_param('s', $id);
         $stmt->execute();
-        $stmt->close();
+        $stmt->close();  
+      } else {
+        die("Connection failed: " . $conn->connect_error);
+      }
 
-        $sql = "SELECT * FROM goods WHERE id = ?";
-        if ($stmt = $conn->prepare($sql)) {
-          $stmt->bind_param('s', $id);
-          $result = $conn->query($sql);
-          while($row = $result->fetch_assoc()) {
-            $name = $row["goods_name"];
-            $addr = $row["goods_addr"];
-            $weight = $row["goods_weight"];
-            $status = $row["goods_sent"];
-            $xml_str = '<payload>' . 
-              '<name>' . $name . '</name>' . 
-              '<addr>' . $addr . '</addr>' . 
-              '<weight>' . $weight . '</weight>' . 
-              '<status>' . $status . '</status>' .
-            '</payload>';
-            return $xml_str;
-          }  
+      $sql = "SELECT * FROM goods WHERE id = ?";
+      if ($stmt = $conn->prepare($sql)) {
+        $stmt->bind_param('s', $id);
+        $stmt->close();
+      } else {
+        die("Connection failed: " . $conn->connect_error);
+      }
+        
+      if ($result = $conn->query($sql)) {
+        while($row = $result->fetch_assoc()) {
+          $name = $row["goods_name"];
+          $addr = $row["goods_addr"];
+          $weight = $row["goods_weight"];
+          $status = $row["goods_sent"];
+          $xml_str = '<payload>' . 
+            '<name>' . $name . '</name>' . 
+            '<addr>' . $addr . '</addr>' . 
+            '<weight>' . $weight . '</weight>' . 
+            '<status>' . $status . '</status>' .
+          '</payload>';
+          return $xml_str;
         }
+        $result->close();
       } else {
         $xml_str = '<payload>' . 
           '<error>Cannot update data</error>' .
