@@ -98,6 +98,50 @@
         return $xml_str;
       }
     }
+
+    /**
+     * Update goods
+     *
+     * @param string $id
+     * @return string $callback
+     */
+    public function update_goods($id) {
+      $servername = "u28rhuskh0x5paau.cbetxkdyhwsb.us-east-1.rds.amazonaws.com";
+      $username = "rfxtlqff1b3jpllv";
+      $password = "qnzetmryuh5jowk0";
+      $database = "z1jc6gd9aiwp5m5c";
+      $conn = new mysqli($servername, $username, $password, $database);
+      if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+      }
+      $sql = "UPDATE goods SET goods_sent = 1 WHERE id = ?";
+      if ($stmt = $conn->prepare($sql)) {
+        $stmt->bind_param('s', $id);
+        $stmt->execute();
+        $stmt->close();
+        $sql = "SELECT * FROM goods WHERE id = ?";
+        $result = $conn->query($sql);
+        while($row = $result->fetch_assoc()) {
+          $name = $row["goods_name"];
+          $addr = $row["goods_addr"];
+          $weight = $row["goods_weight"];
+          $status = $row["goods_sent"];
+          $xml_str = '<payload>' . 
+            '<name>' . $name . '</name>' . 
+            '<addr>' . $addr . '</addr>' . 
+            '<weight>' . $weight . '</weight>' . 
+            '<status>' . $status . '</status>' .
+          '</payload>';
+          return $xml_str;
+        }  
+      } else {
+        $xml_str = '<payload>' . 
+          '<error>Cannot post data</error>' .
+        '</payload>';
+        return $xml_str;
+      }
+    }
+
   } 
 
   $serverUrl = "https://" . $_SERVER['HTTP_HOST'] . "/server.php";
