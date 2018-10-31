@@ -1,6 +1,12 @@
 <?php
   require_once __DIR__ . '/vendor/autoload.php';
 
+  $servername = "u28rhuskh0x5paau.cbetxkdyhwsb.us-east-1.rds.amazonaws.com";
+  $username = "rfxtlqff1b3jpllv";
+  $password = "qnzetmryuh5jowk0";
+  $database = "z1jc6gd9aiwp5m5c";
+  $conn = new mysqli($servername, $username, $password, $database);
+
   class AirCon {
     /**
      * Post air-condition value. ('room,temp,humiduty')
@@ -10,12 +16,11 @@
      */
     public function post_aircon($data_packet) {
       list($room, $temp, $humidity, $time) = explode(",", $data_packet);
-
-      $servername = "u28rhuskh0x5paau.cbetxkdyhwsb.us-east-1.rds.amazonaws.com";
-      $username = "rfxtlqff1b3jpllv";
-      $password = "qnzetmryuh5jowk0";
-      $database = "z1jc6gd9aiwp5m5c";
-      $conn = new mysqli($servername, $username, $password, $database);
+      // $servername = "u28rhuskh0x5paau.cbetxkdyhwsb.us-east-1.rds.amazonaws.com";
+      // $username = "rfxtlqff1b3jpllv";
+      // $password = "qnzetmryuh5jowk0";
+      // $database = "z1jc6gd9aiwp5m5c";
+      // $conn = new mysqli($servername, $username, $password, $database);
       if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
       }
@@ -71,11 +76,11 @@
       list($name, $addr, $weight) = explode(",", $data_packet);
       $status = '0';
 
-      $servername = "u28rhuskh0x5paau.cbetxkdyhwsb.us-east-1.rds.amazonaws.com";
-      $username = "rfxtlqff1b3jpllv";
-      $password = "qnzetmryuh5jowk0";
-      $database = "z1jc6gd9aiwp5m5c";
-      $conn = new mysqli($servername, $username, $password, $database);
+      // $servername = "u28rhuskh0x5paau.cbetxkdyhwsb.us-east-1.rds.amazonaws.com";
+      // $username = "rfxtlqff1b3jpllv";
+      // $password = "qnzetmryuh5jowk0";
+      // $database = "z1jc6gd9aiwp5m5c";
+      // $conn = new mysqli($servername, $username, $password, $database);
       if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
       }
@@ -106,11 +111,11 @@
      * @return string $callback
      */
     public function update_goods($id) {
-      $servername = "u28rhuskh0x5paau.cbetxkdyhwsb.us-east-1.rds.amazonaws.com";
-      $username = "rfxtlqff1b3jpllv";
-      $password = "qnzetmryuh5jowk0";
-      $database = "z1jc6gd9aiwp5m5c";
-      $conn = new mysqli($servername, $username, $password, $database);
+      // $servername = "u28rhuskh0x5paau.cbetxkdyhwsb.us-east-1.rds.amazonaws.com";
+      // $username = "rfxtlqff1b3jpllv";
+      // $password = "qnzetmryuh5jowk0";
+      // $database = "z1jc6gd9aiwp5m5c";
+      // $conn = new mysqli($servername, $username, $password, $database);
       if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
       }
@@ -118,7 +123,7 @@
       if ($stmt = $conn->prepare($sql)) {
         $stmt->bind_param('s', $id);
         $stmt->execute();
-        $stmt->close();  
+        $stmt->close();
         $xml_str = '<payload>' . 
             '<message>ID : ' . $id . ' is sent</message>' .
           '</payload>';
@@ -126,6 +131,29 @@
       } else {
         die("Connection failed: " . $conn->connect_error);
       }
+    }
+
+    /**
+     * Query goods
+     *
+     * @return string $callback
+     */
+    public function list_goods() {
+      if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+      }
+      $sql = "SELECT * FROM goods";
+      $result = $conn->query($sql);
+      $xml_str = '<payload>';
+      while($row = $result->fetch_assoc()) {
+        $xml_str = $xml_str . '<goods><id>' . $row["id"] . '</id>' .
+          '<name>' . $row["goods_name"] . '</name>' .
+          '<address>' . $row["goods_addr"] . '</address>' .
+          '<weight>' . $row["goods_weight"] . '</weight>' .
+          '<status>' . $row["goods_status"] . '</status></goods>';
+      }
+      $xml_str = $xml_str . '</payload>';
+      return $xml_str;
     }
   } 
 
